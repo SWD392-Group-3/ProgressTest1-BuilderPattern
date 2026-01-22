@@ -21,5 +21,9 @@
         public decimal EstimatedPrice { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        public string PSU { get; set; } = string.Empty;
+
+        public int PerformanceScore { get; set; }
     }
 }

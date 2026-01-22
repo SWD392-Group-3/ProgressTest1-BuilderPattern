@@ -17,5 +17,7 @@
         public bool? IsLiquidCooling { get; set; }
 
         public bool? IsRGBLighting { get; set; }
+
+        public string? CustomPSU { get; set; }
     }
 }

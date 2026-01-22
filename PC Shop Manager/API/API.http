@@ -1,6 +1,42 @@
-@API_HostAddress = http://localhost:5167
+@API_HostAddress = https://localhost:7087
 
-GET {{API_HostAddress}}/weatherforecast/
-Accept: application/json
+### 1. Test Create Order: SUCCESS (Gaming PC)
+POST {{API_HostAddress}}/api/Computer/create-order
+Content-Type: application/json
 
-###
+{
+  "customerName": "Pro Gamer",
+  "orderType": "Gaming"
+}
+
+### 2. Test Create Order: FAIL (Anti-Stupid: Bottleneck i3 + 4090)
+POST {{API_HostAddress}}/api/Computer/create-order
+Content-Type: application/json
+
+{
+  "customerName": "Rich Kid No Knowledge",
+  "orderType": "Custom",
+  "customCPU": "Intel Core i3",
+  "customGPU": "NVIDIA RTX 4090",
+  "customRAM": "8GB",
+  "customStorage": "SSD",
+  "customPSU": "1000W",
+  "isLiquidCooling": true,
+  "isRGBLighting": true
+}
+
+### 3. Test Create Order: FAIL (Weak PSU)
+POST {{API_HostAddress}}/api/Computer/create-order
+Content-Type: application/json
+
+{
+  "customerName": "Cheap PSU User",
+  "orderType": "Custom",
+  "customCPU": "Intel Core i9",
+  "customGPU": "NVIDIA RTX 4090",
+  "customRAM": "32GB",
+  "customStorage": "SSD",
+  "customPSU": "300W",
+  "isLiquidCooling": true,
+  "isRGBLighting": true
+}

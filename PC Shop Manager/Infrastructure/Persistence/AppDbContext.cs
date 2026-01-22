@@ -15,6 +15,11 @@ namespace Infrastructure.Persistence
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+            
+            // Fix warning: No store type was specified for the decimal property
+            modelBuilder.Entity<Computer>()
+                .Property(c => c.EstimatedPrice)
+                .HasColumnType("decimal(18,2)");
         }
     }
 }

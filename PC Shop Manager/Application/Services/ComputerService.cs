@@ -35,6 +35,7 @@ namespace Application.Services
                 if (!string.IsNullOrEmpty(request.CustomGPU)) builder.WithGPU(request.CustomGPU);
                 if (!string.IsNullOrEmpty(request.CustomRAM)) builder.WithRAM(request.CustomRAM);
                 if (!string.IsNullOrEmpty(request.CustomStorage)) builder.WithStorage(request.CustomStorage);
+                if (!string.IsNullOrEmpty(request.CustomPSU)) builder.WithPSU(request.CustomPSU);
 
                 if (request.IsLiquidCooling == true) builder.WithLiquidCooling(true);
                 if (request.IsRGBLighting == true) builder.WithRGB(true);
