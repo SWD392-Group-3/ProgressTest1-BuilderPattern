@@ -85,6 +85,8 @@ namespace View
             string ram = Console.ReadLine();
             Console.Write("Storage: ");
             string storage = Console.ReadLine();
+            Console.Write("PSU: ");
+            string psu = Console.ReadLine();
             Console.Write("Liquid Cooling (y/n): ");
             bool isLiquidCooling = Console.ReadLine().ToLower() == "y";
             Console.Write("RGB Lighting (y/n): ");
@@ -98,6 +100,7 @@ namespace View
                 CustomGPU = gpu,
                 CustomRAM = ram,
                 CustomStorage = storage,
+                CustomPSU = psu,
                 IsLiquidCooling = isLiquidCooling,
                 IsRGBLighting = isRGBLighting
             };
