@@ -2,6 +2,8 @@
 {
     public class ComputerResponse
     {
+        public Guid Id { get; set; }
+
         public string OrderName { get; set; } = string.Empty;
 
         public string CPU { get; set; } = string.Empty;
