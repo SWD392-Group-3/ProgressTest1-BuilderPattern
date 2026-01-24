@@ -77,15 +77,39 @@ namespace View
         {
             Console.Write("Tên khách: ");
             string name = Console.ReadLine();
-            Console.Write("CPU: ");
+            Console.WriteLine("\n--- CHỌN CPU ---");
+            Console.WriteLine("1. Intel Core i9-13900K (High-End)");
+            Console.WriteLine("2. Intel Core i7-12700K (Mid-Range)");
+            Console.WriteLine("3. Intel Core i5-12400 (Budget)");
+            Console.Write("Nhập tên CPU (hoặc chọn theo menu trên): ");
             string cpu = Console.ReadLine();
-            Console.Write("GPU: ");
+
+            Console.WriteLine("\n--- CHỌN GPU ---");
+            Console.WriteLine("1. NVIDIA RTX 4090 (Ultra)");
+            Console.WriteLine("2. NVIDIA RTX 3060 (Balanced)");
+            Console.WriteLine("3. NVIDIA GTX 1660 (Entry)");
+            Console.Write("Nhập tên GPU: ");
             string gpu = Console.ReadLine();
-            Console.Write("RAM: ");
+
+            Console.WriteLine("\n--- CHỌN RAM ---");
+            Console.WriteLine("1. 32GB DDR5");
+            Console.WriteLine("2. 16GB DDR4");
+            Console.WriteLine("3. 8GB DDR4");
+            Console.Write("Nhập RAM: ");
             string ram = Console.ReadLine();
-            Console.Write("Storage: ");
+
+            Console.WriteLine("\n--- CHỌN STORAGE ---");
+            Console.WriteLine("1. 1TB NVMe SSD");
+            Console.WriteLine("2. 512GB SSD");
+            Console.WriteLine("3. 1TB HDD");
+            Console.Write("Nhập Storage: ");
             string storage = Console.ReadLine();
-            Console.Write("PSU: ");
+
+            Console.WriteLine("\n--- CHỌN PSU ---");
+            Console.WriteLine("1. Corsair 1000W");
+            Console.WriteLine("2. Cooler Master 750W");
+            Console.WriteLine("3. Generic 500W");
+            Console.Write("Nhập PSU: ");
             string psu = Console.ReadLine();
             Console.Write("Liquid Cooling (y/n): ");
             bool isLiquidCooling = Console.ReadLine().ToLower() == "y";
