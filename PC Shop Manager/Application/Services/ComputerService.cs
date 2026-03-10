@@ -21,13 +21,15 @@ namespace Application.Services
 
             builder.WithOrderName(request.CustomerName);
 
+            var director = new ComputerDirector(builder);
+
             if (request.OrderType == "Office")
             {
-                builder.AsOfficePreset();
+                director.BuildOfficePC();
             }
             else if (request.OrderType == "Gaming")
             {
-                builder.AsGamingPreset();
+                director.BuildGamingPC();
             }
             else
             {

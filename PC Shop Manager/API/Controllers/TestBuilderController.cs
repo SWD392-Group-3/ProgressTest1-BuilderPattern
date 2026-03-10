@@ -14,19 +14,21 @@ namespace API.Controllers
 
             // 1. Happy Path: Build Gaming PC with Good PSU
             try {
-                var pc = new ComputerBuilder()
-                    .AsGamingPreset()
-                    .WithPSU("1200W") 
-                    .Build();
+                var builder = new ComputerBuilder();
+                var director = new ComputerDirector(builder);
+                director.BuildGamingPC();
+                builder.WithPSU("1200W"); 
+                var pc = builder.Build();
                 results.Add($"[PASS] Gaming PC Built. Score: {pc.PerformanceScore}, Price: {pc.EstimatedPrice}");
             } catch (Exception ex) { results.Add($"[FAIL] Valid Gaming PC failed: {ex.Message}"); }
 
             // 2. Failure Case: Weak PSU
             try {
-                var pc = new ComputerBuilder()
-                    .AsGamingPreset() // Requires high watts
-                    .WithPSU("300W")
-                    .Build();
+                var builder = new ComputerBuilder();
+                var director = new ComputerDirector(builder);
+                director.BuildGamingPC(); // Requires high watts
+                builder.WithPSU("300W");
+                var pc = builder.Build();
                 results.Add($"[FAIL] Weak PSU check failed (Should have thrown exception).");
             } catch (Exception ex) { results.Add($"[PASS] Weak PSU caught: {ex.Message}"); }
 
