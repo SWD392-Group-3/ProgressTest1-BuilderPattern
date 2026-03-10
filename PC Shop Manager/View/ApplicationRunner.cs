@@ -77,44 +77,90 @@ namespace View
         {
             Console.Write("Customer name: ");
             string name = Console.ReadLine();
+
+            // --- CPU ---
             Console.WriteLine("\n--- SELECT CPU ---");
             Console.WriteLine("1. Intel Core i9-13900K (High-End)");
             Console.WriteLine("2. Intel Core i7-12700K (Mid-Range)");
             Console.WriteLine("3. Intel Core i5-12400 (Budget)");
-            Console.Write("Enter CPU name (or select from the menu above): ");
-            string cpu = Console.ReadLine();
+            Console.Write("Select option (1-3): ");
+            string cpu = Console.ReadLine() switch
+            {
+                "1" => "Intel Core i9-13900K",
+                "2" => "Intel Core i7-12700K",
+                "3" => "Intel Core i5-12400",
+                var custom => custom
+            };
 
+            // --- GPU ---
             Console.WriteLine("\n--- SELECT GPU ---");
             Console.WriteLine("1. NVIDIA RTX 4090 (Ultra)");
             Console.WriteLine("2. NVIDIA RTX 3060 (Balanced)");
             Console.WriteLine("3. NVIDIA GTX 1660 (Entry)");
-            Console.Write("Enter GPU name: ");
-            string gpu = Console.ReadLine();
+            Console.Write("Select option (1-3): ");
+            string gpu = Console.ReadLine() switch
+            {
+                "1" => "NVIDIA RTX 4090",
+                "2" => "NVIDIA RTX 3060",
+                "3" => "NVIDIA GTX 1660",
+                var custom => custom
+            };
 
+            // --- RAM ---
             Console.WriteLine("\n--- SELECT RAM ---");
             Console.WriteLine("1. 32GB DDR5");
             Console.WriteLine("2. 16GB DDR4");
             Console.WriteLine("3. 8GB DDR4");
-            Console.Write("Enter RAM: ");
-            string ram = Console.ReadLine();
+            Console.Write("Select option (1-3): ");
+            string ram = Console.ReadLine() switch
+            {
+                "1" => "32GB DDR5",
+                "2" => "16GB DDR4",
+                "3" => "8GB DDR4",
+                var custom => custom
+            };
 
+            // --- Storage ---
             Console.WriteLine("\n--- SELECT STORAGE ---");
             Console.WriteLine("1. 1TB NVMe SSD");
             Console.WriteLine("2. 512GB SSD");
             Console.WriteLine("3. 1TB HDD");
-            Console.Write("Enter Storage: ");
-            string storage = Console.ReadLine();
+            Console.Write("Select option (1-3): ");
+            string storage = Console.ReadLine() switch
+            {
+                "1" => "1TB NVMe SSD",
+                "2" => "512GB SSD",
+                "3" => "1TB HDD",
+                var custom => custom
+            };
 
+            // --- PSU ---
             Console.WriteLine("\n--- SELECT PSU ---");
             Console.WriteLine("1. Corsair 1000W");
             Console.WriteLine("2. Cooler Master 750W");
             Console.WriteLine("3. Generic 500W");
-            Console.Write("Enter PSU: ");
-            string psu = Console.ReadLine();
+            Console.Write("Select option (1-3): ");
+            string psu = Console.ReadLine() switch
+            {
+                "1" => "Corsair 1000W",
+                "2" => "Cooler Master 750W",
+                "3" => "Generic 500W",
+                var custom => custom
+            };
+
             Console.Write("Liquid Cooling (y/n): ");
             bool isLiquidCooling = Console.ReadLine().ToLower() == "y";
             Console.Write("RGB Lighting (y/n): ");
             bool isRGBLighting = Console.ReadLine().ToLower() == "y";
+
+            Console.WriteLine($"\n--- Order Summary ---");
+            Console.WriteLine($"  CPU     : {cpu}");
+            Console.WriteLine($"  GPU     : {gpu}");
+            Console.WriteLine($"  RAM     : {ram}");
+            Console.WriteLine($"  Storage : {storage}");
+            Console.WriteLine($"  PSU     : {psu}");
+            Console.WriteLine($"  Liquid Cooling: {(isLiquidCooling ? "Yes" : "No")}");
+            Console.WriteLine($"  RGB Lighting  : {(isRGBLighting ? "Yes" : "No")}");
 
             var request = new CreateOrderRequest
             {
@@ -130,7 +176,7 @@ namespace View
             };
 
             var result = await _computerService.CreateOrderAsync(request);
-            Console.WriteLine($"✅ Custom order created. Price: {result.EstimatedPrice}");
+            Console.WriteLine($"\n✅ Custom order created. Price: {result.EstimatedPrice}");
         }
 
         private async Task HandleViewOrders()
