@@ -16,13 +16,11 @@ namespace Domain.Builders
             };
         }
 
-        // ── IDeviceBuilder<Computer> explicit implementations ───────────────
         IDeviceBuilder<Computer> IDeviceBuilder<Computer>.WithOrderName(string orderName) => WithOrderName(orderName);
         IDeviceBuilder<Computer> IDeviceBuilder<Computer>.WithCPU(string cpu) => WithCPU(cpu);
         IDeviceBuilder<Computer> IDeviceBuilder<Computer>.WithRAM(string ram) => WithRAM(ram);
         IDeviceBuilder<Computer> IDeviceBuilder<Computer>.WithStorage(string storage) => WithStorage(storage);
 
-        // ── IComputerBuilder fluent methods ─────────────────────────────────
         public IComputerBuilder WithOrderName(string orderName)
         {
             _computer.OrderName = orderName;
@@ -90,7 +88,6 @@ namespace Domain.Builders
 
         public Computer Build()
         {
-            // ── Validation ──────────────────────────────────────────────────
             if (string.IsNullOrEmpty(_computer.CPU))
                 throw new InvalidOperationException("A computer cannot function without a CPU!");
 
@@ -100,27 +97,22 @@ namespace Domain.Builders
             if (string.IsNullOrEmpty(_computer.PSU))
                 throw new InvalidOperationException("A computer cannot function without a PSU!");
 
-            // PSU wattage compatibility check
             int neededWattage = CalculateComponentWattage();
             int psuWattage = GetPSUWattage(_computer.PSU);
             if (psuWattage < neededWattage)
                 throw new InvalidOperationException(
                     $"Danger! PSU ({psuWattage}W) is too weak for this system (Needs ~{neededWattage}W). Boom!");
 
-            // Anti-bottleneck rule
             if (_computer.GPU.Contains("4090") && !_computer.CPU.Contains("i9") && !_computer.CPU.Contains("i7"))
                 throw new InvalidOperationException(
                     "Anti-Stupid Rule: You cannot pair an RTX 4090 with a weak CPU! Complete bottleneck.");
 
-            // High-end cooling rule
             if (_computer.EstimatedPrice > 2000 && !_computer.HasLiquidCooling)
                 throw new InvalidOperationException(
                     "High-end PCs (over $2000) absolutely require liquid cooling!");
 
-            // ── Performance scoring ─────────────────────────────────────────
             _computer.PerformanceScore = CalculatePerformanceScore();
 
-            // ── State reset: return built object, prepare fresh builder state ─
             var result = _computer;
             _computer = new Computer
             {
@@ -132,7 +124,6 @@ namespace Domain.Builders
             return result;
         }
 
-        // ── Private helpers ──────────────────────────────────────────────────
         private int CalculateComponentWattage()
         {
             int total = 100; // base system

@@ -18,13 +18,12 @@ namespace Application.Services
         public async Task<Computer> CreateOrderAsync(CreateOrderRequest request)
         {
             var builder = new ComputerBuilder();
-            builder.WithOrderName(request.CustomerName); // set OrderName BEFORE director
+            builder.WithOrderName(request.CustomerName);
 
             var director = new DeviceDirector();
 
             if (request.OrderType == "Office")
             {
-                // Director sets component steps; OrderName is already on the builder
                 director.BuildOfficePC(builder);
             }
             else if (request.OrderType == "Gaming")
@@ -33,14 +32,13 @@ namespace Application.Services
             }
             else
             {
-                // Custom order — build incrementally from request
-                if (!string.IsNullOrEmpty(request.CustomCPU))     builder.WithCPU(request.CustomCPU);
-                if (!string.IsNullOrEmpty(request.CustomGPU))     builder.WithGPU(request.CustomGPU);
-                if (!string.IsNullOrEmpty(request.CustomRAM))     builder.WithRAM(request.CustomRAM);
+                if (!string.IsNullOrEmpty(request.CustomCPU)) builder.WithCPU(request.CustomCPU);
+                if (!string.IsNullOrEmpty(request.CustomGPU)) builder.WithGPU(request.CustomGPU);
+                if (!string.IsNullOrEmpty(request.CustomRAM)) builder.WithRAM(request.CustomRAM);
                 if (!string.IsNullOrEmpty(request.CustomStorage)) builder.WithStorage(request.CustomStorage);
-                if (!string.IsNullOrEmpty(request.CustomPSU))     builder.WithPSU(request.CustomPSU);
-                if (request.IsLiquidCooling == true)              builder.WithLiquidCooling(true);
-                if (request.IsRGBLighting == true)                builder.WithRGB(true);
+                if (!string.IsNullOrEmpty(request.CustomPSU)) builder.WithPSU(request.CustomPSU);
+                if (request.IsLiquidCooling == true) builder.WithLiquidCooling(true);
+                if (request.IsRGBLighting == true) builder.WithRGB(true);
             }
 
             var computer = builder.Build();
@@ -53,15 +51,15 @@ namespace Application.Services
             var computers = await _computerRepository.GetAllAsync();
             return computers.Select(c => new ComputerResponse
             {
-                Id               = c.Id,
-                OrderName        = c.OrderName,
-                CPU              = c.CPU,
-                GPU              = c.GPU,
-                RAM              = c.RAM,
-                Storage          = c.Storage,
-                HasRGB           = c.HasRGB,
+                Id = c.Id,
+                OrderName = c.OrderName,
+                CPU = c.CPU,
+                GPU = c.GPU,
+                RAM = c.RAM,
+                Storage = c.Storage,
+                HasRGB = c.HasRGB,
                 HasLiquidCooling = c.HasLiquidCooling,
-                EstimatedPrice   = c.EstimatedPrice
+                EstimatedPrice = c.EstimatedPrice
             }).ToList();
         }
     }

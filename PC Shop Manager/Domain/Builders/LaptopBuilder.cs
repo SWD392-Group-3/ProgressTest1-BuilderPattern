@@ -16,13 +16,11 @@ namespace Domain.Builders
             };
         }
 
-        // ── IDeviceBuilder<Laptop> explicit implementations ──────────────────
         IDeviceBuilder<Laptop> IDeviceBuilder<Laptop>.WithOrderName(string orderName) => WithOrderName(orderName);
         IDeviceBuilder<Laptop> IDeviceBuilder<Laptop>.WithCPU(string cpu) => WithCPU(cpu);
         IDeviceBuilder<Laptop> IDeviceBuilder<Laptop>.WithRAM(string ram) => WithRAM(ram);
         IDeviceBuilder<Laptop> IDeviceBuilder<Laptop>.WithStorage(string storage) => WithStorage(storage);
 
-        // ── ILaptopBuilder fluent methods ────────────────────────────────────
         public ILaptopBuilder WithOrderName(string orderName)
         {
             _laptop.OrderName = orderName;
@@ -73,7 +71,6 @@ namespace Domain.Builders
 
         public Laptop Build()
         {
-            // ── Validation ──────────────────────────────────────────────────
             if (string.IsNullOrEmpty(_laptop.CPU))
                 throw new InvalidOperationException("Laptop requires a CPU!");
 
@@ -83,10 +80,8 @@ namespace Domain.Builders
             if (string.IsNullOrEmpty(_laptop.ScreenSize))
                 throw new InvalidOperationException("Laptop requires a screen size!");
 
-            // ── Performance scoring ─────────────────────────────────────────
             _laptop.PerformanceScore = CalculatePerformanceScore();
 
-            // ── State reset ─────────────────────────────────────────────────
             var result = _laptop;
             _laptop = new Laptop
             {
@@ -98,7 +93,6 @@ namespace Domain.Builders
             return result;
         }
 
-        // ── Private helpers ──────────────────────────────────────────────────
         private int CalculatePerformanceScore()
         {
             int score = 0;
@@ -114,7 +108,6 @@ namespace Domain.Builders
 
             if (_laptop.Storage.Contains("NVMe") || _laptop.Storage.Contains("SSD")) score += 250;
 
-            // Battery bonus for longevity
             if (_laptop.BatteryCapacity.Contains("8000")) score += 300;
             else if (_laptop.BatteryCapacity.Contains("5000")) score += 150;
 

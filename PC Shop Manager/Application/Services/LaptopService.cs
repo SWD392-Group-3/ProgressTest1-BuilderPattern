@@ -18,7 +18,7 @@ namespace Application.Services
         public async Task<Laptop> CreateLaptopOrderAsync(CreateLaptopOrderRequest request)
         {
             var builder = new LaptopBuilder();
-            builder.WithOrderName(request.CustomerName); // set OrderName BEFORE director
+            builder.WithOrderName(request.CustomerName);
 
             var director = new DeviceDirector();
 
@@ -32,13 +32,12 @@ namespace Application.Services
             }
             else
             {
-                // Custom order — build incrementally from request
-                if (!string.IsNullOrEmpty(request.CustomCPU))        builder.WithCPU(request.CustomCPU);
-                if (!string.IsNullOrEmpty(request.CustomRAM))        builder.WithRAM(request.CustomRAM);
-                if (!string.IsNullOrEmpty(request.CustomStorage))    builder.WithStorage(request.CustomStorage);
+                if (!string.IsNullOrEmpty(request.CustomCPU)) builder.WithCPU(request.CustomCPU);
+                if (!string.IsNullOrEmpty(request.CustomRAM)) builder.WithRAM(request.CustomRAM);
+                if (!string.IsNullOrEmpty(request.CustomStorage)) builder.WithStorage(request.CustomStorage);
                 if (!string.IsNullOrEmpty(request.CustomScreenSize)) builder.WithScreenSize(request.CustomScreenSize);
-                if (!string.IsNullOrEmpty(request.CustomBattery))    builder.WithBattery(request.CustomBattery);
-                if (!string.IsNullOrEmpty(request.CustomWeight))     builder.WithWeight(request.CustomWeight);
+                if (!string.IsNullOrEmpty(request.CustomBattery)) builder.WithBattery(request.CustomBattery);
+                if (!string.IsNullOrEmpty(request.CustomWeight)) builder.WithWeight(request.CustomWeight);
             }
 
             var laptop = builder.Build();
@@ -51,15 +50,15 @@ namespace Application.Services
             var laptops = await _laptopRepository.GetAllAsync();
             return laptops.Select(l => new LaptopResponse
             {
-                Id               = l.Id,
-                OrderName        = l.OrderName,
-                CPU              = l.CPU,
-                RAM              = l.RAM,
-                Storage          = l.Storage,
-                ScreenSize       = l.ScreenSize,
-                BatteryCapacity  = l.BatteryCapacity,
-                Weight           = l.Weight,
-                EstimatedPrice   = l.EstimatedPrice,
+                Id = l.Id,
+                OrderName = l.OrderName,
+                CPU = l.CPU,
+                RAM = l.RAM,
+                Storage = l.Storage,
+                ScreenSize = l.ScreenSize,
+                BatteryCapacity = l.BatteryCapacity,
+                Weight = l.Weight,
+                EstimatedPrice = l.EstimatedPrice,
                 PerformanceScore = l.PerformanceScore
             }).ToList();
         }
