@@ -1,4 +1,4 @@
-﻿using Application.Interfaces;
+using Application.Interfaces;
 using Application.Services;
 using Domain.Interfaces;
 using Infrastructure.Persistence;
@@ -31,8 +31,13 @@ class Program
                 services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(connectionString));
 
+                // Computer
                 services.AddScoped<IComputerRepository, ComputerRepository>();
                 services.AddScoped<IComputerService, ComputerService>();
+
+                // Laptop
+                services.AddScoped<ILaptopRepository, LaptopRepository>();
+                services.AddScoped<ILaptopService, LaptopService>();
 
                 services.AddTransient<ApplicationRunner>();
             });

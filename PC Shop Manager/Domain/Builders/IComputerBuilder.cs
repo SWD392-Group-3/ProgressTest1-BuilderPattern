@@ -2,17 +2,16 @@ using Domain.Entities;
 
 namespace Domain.Builders
 {
-    public interface IComputerBuilder
+    public interface IComputerBuilder : IDeviceBuilder<Computer>
     {
-        IComputerBuilder WithOrderName(string orderName);
-        IComputerBuilder WithCPU(string cpu);
+        new IComputerBuilder WithOrderName(string orderName);
+        new IComputerBuilder WithCPU(string cpu);
+        new IComputerBuilder WithRAM(string ram);
+        new IComputerBuilder WithStorage(string storage);
         IComputerBuilder WithGPU(string gpu);
-        IComputerBuilder WithRAM(string ram);
-        IComputerBuilder WithStorage(string storage);
+        IComputerBuilder WithPSU(string psu);
         IComputerBuilder WithRGB(bool hasRGB);
         IComputerBuilder WithLiquidCooling(bool hasLiquidCooling);
-        IComputerBuilder WithPSU(string psu);
         IComputerBuilder UsePresetPrice(decimal price);
-        Computer Build();
     }
 }

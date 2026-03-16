@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+using Application.DTOs;
 using Application.Interfaces;
 using Domain.Builders;
 using Domain.Entities;
@@ -18,41 +18,34 @@ namespace Application.Services
         public async Task<Computer> CreateOrderAsync(CreateOrderRequest request)
         {
             var builder = new ComputerBuilder();
+            builder.WithOrderName(request.CustomerName); // set OrderName BEFORE director
 
-            builder.WithOrderName(request.CustomerName);
-
-            var director = new ComputerDirector(builder);
+            var director = new DeviceDirector();
 
             if (request.OrderType == "Office")
             {
-                director.BuildOfficePC();
+                // Director sets component steps; OrderName is already on the builder
+                director.BuildOfficePC(builder);
             }
             else if (request.OrderType == "Gaming")
             {
-                director.BuildGamingPC();
+                director.BuildGamingPC(builder);
             }
             else
             {
-                if (!string.IsNullOrEmpty(request.CustomCPU)) builder.WithCPU(request.CustomCPU);
-                if (!string.IsNullOrEmpty(request.CustomGPU)) builder.WithGPU(request.CustomGPU);
-                if (!string.IsNullOrEmpty(request.CustomRAM)) builder.WithRAM(request.CustomRAM);
+                // Custom order — build incrementally from request
+                if (!string.IsNullOrEmpty(request.CustomCPU))     builder.WithCPU(request.CustomCPU);
+                if (!string.IsNullOrEmpty(request.CustomGPU))     builder.WithGPU(request.CustomGPU);
+                if (!string.IsNullOrEmpty(request.CustomRAM))     builder.WithRAM(request.CustomRAM);
                 if (!string.IsNullOrEmpty(request.CustomStorage)) builder.WithStorage(request.CustomStorage);
-                if (!string.IsNullOrEmpty(request.CustomPSU)) builder.WithPSU(request.CustomPSU);
-
-                if (request.IsLiquidCooling == true) builder.WithLiquidCooling(true);
-                if (request.IsRGBLighting == true) builder.WithRGB(true);
+                if (!string.IsNullOrEmpty(request.CustomPSU))     builder.WithPSU(request.CustomPSU);
+                if (request.IsLiquidCooling == true)              builder.WithLiquidCooling(true);
+                if (request.IsRGBLighting == true)                builder.WithRGB(true);
             }
 
-            try
-            {
-                var computer = builder.Build();
-                await _computerRepository.AddAsync(computer);
-                return computer;
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw;
-            }
+            var computer = builder.Build();
+            await _computerRepository.AddAsync(computer);
+            return computer;
         }
 
         public async Task<List<ComputerResponse>> GetAllComputersAsync()
@@ -60,14 +53,15 @@ namespace Application.Services
             var computers = await _computerRepository.GetAllAsync();
             return computers.Select(c => new ComputerResponse
             {
-                OrderName = c.OrderName,
-                CPU = c.CPU,
-                GPU = c.GPU,
-                RAM = c.RAM,
-                Storage = c.Storage,
-                HasRGB = c.HasRGB,
+                Id               = c.Id,
+                OrderName        = c.OrderName,
+                CPU              = c.CPU,
+                GPU              = c.GPU,
+                RAM              = c.RAM,
+                Storage          = c.Storage,
+                HasRGB           = c.HasRGB,
                 HasLiquidCooling = c.HasLiquidCooling,
-                EstimatedPrice = c.EstimatedPrice,
+                EstimatedPrice   = c.EstimatedPrice
             }).ToList();
         }
     }
