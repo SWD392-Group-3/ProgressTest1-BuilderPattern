@@ -18,7 +18,6 @@ namespace Domain.Builders
         {
             _builder
                 .WithCPU("Intel i5-12400")
-                .WithGPU("Intel UHD 730")
                 .WithRAM("8GB DDR4")
                 .WithStorage("256GB NVMe SSD")
                 .WithPSU("500W")
