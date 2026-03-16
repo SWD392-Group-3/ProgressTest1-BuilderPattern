@@ -21,8 +21,6 @@ namespace Domain.Builders
                 .WithGPU("Intel UHD 730")
                 .WithRAM("8GB DDR4")
                 .WithStorage("256GB NVMe SSD")
-                .WithRGB(false)
-                .WithLiquidCooling(false)
                 .WithPSU("500W")
                 .UsePresetPrice(700);
         }

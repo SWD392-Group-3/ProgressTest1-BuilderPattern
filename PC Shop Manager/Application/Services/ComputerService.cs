@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+using Application.DTOs;
 using Application.Interfaces;
 using Domain.Builders;
 using Domain.Entities;
@@ -49,7 +49,7 @@ namespace Application.Services
                 await _computerRepository.AddAsync(computer);
                 return computer;
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException)
             {
                 throw;
             }

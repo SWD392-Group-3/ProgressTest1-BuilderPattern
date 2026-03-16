@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+using Application.DTOs;
 using Application.Interfaces;
 
 namespace View
@@ -60,7 +60,7 @@ namespace View
         private async Task HandlePresetOrder(string type)
         {
             Console.Write("Customer name: ");
-            string name = Console.ReadLine();
+            string name = Console.ReadLine() ?? string.Empty; // fix CS8600
 
             var request = new CreateOrderRequest
             {
@@ -76,7 +76,7 @@ namespace View
         private async Task HandleCustomOrder()
         {
             Console.Write("Customer name: ");
-            string name = Console.ReadLine();
+            string name = Console.ReadLine() ?? string.Empty; // fix CS8600
 
             // --- CPU ---
             Console.WriteLine("\n--- SELECT CPU ---");
@@ -84,7 +84,7 @@ namespace View
             Console.WriteLine("2. Intel Core i7-12700K (Mid-Range)");
             Console.WriteLine("3. Intel Core i5-12400 (Budget)");
             Console.Write("Select option (1-3): ");
-            string cpu = Console.ReadLine() switch
+            string cpu = (Console.ReadLine() ?? string.Empty) switch // fix CS8600
             {
                 "1" => "Intel Core i9-13900K",
                 "2" => "Intel Core i7-12700K",
@@ -98,7 +98,7 @@ namespace View
             Console.WriteLine("2. NVIDIA RTX 3060 (Balanced)");
             Console.WriteLine("3. NVIDIA GTX 1660 (Entry)");
             Console.Write("Select option (1-3): ");
-            string gpu = Console.ReadLine() switch
+            string gpu = (Console.ReadLine() ?? string.Empty) switch // fix CS8600
             {
                 "1" => "NVIDIA RTX 4090",
                 "2" => "NVIDIA RTX 3060",
@@ -112,7 +112,7 @@ namespace View
             Console.WriteLine("2. 16GB DDR4");
             Console.WriteLine("3. 8GB DDR4");
             Console.Write("Select option (1-3): ");
-            string ram = Console.ReadLine() switch
+            string ram = (Console.ReadLine() ?? string.Empty) switch // fix CS8600
             {
                 "1" => "32GB DDR5",
                 "2" => "16GB DDR4",
@@ -126,7 +126,7 @@ namespace View
             Console.WriteLine("2. 512GB SSD");
             Console.WriteLine("3. 1TB HDD");
             Console.Write("Select option (1-3): ");
-            string storage = Console.ReadLine() switch
+            string storage = (Console.ReadLine() ?? string.Empty) switch // fix CS8600
             {
                 "1" => "1TB NVMe SSD",
                 "2" => "512GB SSD",
@@ -140,7 +140,7 @@ namespace View
             Console.WriteLine("2. Cooler Master 750W");
             Console.WriteLine("3. Generic 500W");
             Console.Write("Select option (1-3): ");
-            string psu = Console.ReadLine() switch
+            string psu = (Console.ReadLine() ?? string.Empty) switch // fix CS8600
             {
                 "1" => "Corsair 1000W",
                 "2" => "Cooler Master 750W",
@@ -149,9 +149,9 @@ namespace View
             };
 
             Console.Write("Liquid Cooling (y/n): ");
-            bool isLiquidCooling = Console.ReadLine().ToLower() == "y";
+            bool isLiquidCooling = (Console.ReadLine() ?? string.Empty).ToLower() == "y"; // fix CS8602
             Console.Write("RGB Lighting (y/n): ");
-            bool isRGBLighting = Console.ReadLine().ToLower() == "y";
+            bool isRGBLighting = (Console.ReadLine() ?? string.Empty).ToLower() == "y";   // fix CS8602
 
             Console.WriteLine($"\n--- Order Summary ---");
             Console.WriteLine($"  CPU     : {cpu}");

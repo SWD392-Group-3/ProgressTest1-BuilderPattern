@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell.exe -Command \"cd 'C:\\\\Users\\\\Huy\\\\OneDrive\\\\Desktop\\\\Clone\\\\ProgressTest1-BuilderPattern\\\\PC Shop Manager'; dotnet build 2>&1\")"
+    ]
+  }
+}
